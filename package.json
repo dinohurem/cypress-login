@@ -1,0 +1,19 @@
+{
+  "name": "cypress-login",
+  "version": "1.0.0",
+  "description": "Repo for automated testing of PO system using Cypress.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dinohurem/cypress-login.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dinohurem/cypress-login/issues"
+  },
+  "homepage": "https://github.com/dinohurem/cypress-login#readme"
+}
