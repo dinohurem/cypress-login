@@ -27,11 +27,7 @@ describe("Login", () => {
   it("should successfully verify tokens presence", () => {
     cy.log("Verifying tokens...");
     homePage.visit();
-    cy.window()
-      .its("sessionStorage")
-      .invoke("getItem", "Testing-token")
-      .should("exist");
-    //homePage.verifyToken(commonTexts.token);
+    homePage.verifyToken(commonTexts.token);
     homePage.verifyToken(commonTexts.refreshToken);
   });
 });

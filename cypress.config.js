@@ -13,6 +13,7 @@ module.exports = {
     email: "anel@test.com",
     password: "Test1234!",
     verificationCode: "9999",
+    domainUrl: "https://production-qa-fxhcwcz4ja-ew.a.run.app",
   },
   e2e: {
     // We've imported your old cypress plugins here.
