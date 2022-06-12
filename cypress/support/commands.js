@@ -1,58 +1,43 @@
-import { authenticationSelectors } from "../constants/selectors/authentication";
+import LoginPage from "./pages/auth/login-page";
+import RegistrationPage from "./pages/auth/registration-page";
+import HomePage from "./pages/home-page";
 import { WelcomePage } from "./pages/welcome-page";
+const welcomePage = new WelcomePage();
+const loginPage = new LoginPage();
+const registerPage = new RegistrationPage();
+const homePage = new HomePage();
 
-// Login commands.
+// Login.
 Cypress.Commands.add("login", (email, password) => {
+  cy.log("Logging in with session...");
   const args = { email, password };
-  const welcomePage = new WelcomePage();
+
   cy.session(args, () => {
     welcomePage.visit();
-    welcomePage.submit();
-    cy.wait(500);
+    welcomePage.login();
 
-    cy.get(authenticationSelectors.userNameTextField).type(email);
-    cy.get(authenticationSelectors.passwordTextField).type(password);
-    cy.get('[data-testid="login-button"]').click();
-    cy.url().should("contain", "/events");
+    loginPage.verifyUrl();
+    loginPage.submit(email, password);
+    homePage.verifyUrl();
   });
 });
 
 Cypress.Commands.add("loginWithoutSession", (email, password) => {
-  const welcomePage = new WelcomePage();
-
+  cy.log("Logging in without session...");
   welcomePage.visit();
-  welcomePage.submit();
+  welcomePage.login();
 
-  cy.get(authenticationSelectors.userNameTextField).type(email);
-  cy.get(authenticationSelectors.passwordTextField).type(password);
-  cy.get('[data-testid="login-button"]').click();
-  cy.url().should("contain", "/events");
+  loginPage.verifyUrl();
+  loginPage.submit(email, password);
+  homePage.verifyUrl();
 });
 
-// Logout command.
-Cypress.Commands.add("logout", (url, email, password) => {
-  cy.visit("https://qa-task-web.ministryofprogramming.com/events");
-  cy.get(authenticationSelectors.userNameTextField).type(email);
-  cy.get(authenticationSelectors.passwordTextField).type(password);
-  cy.get('[data-testid="login-button"]').click();
-  cy.url().should("contain", "/events");
-});
+// Signup.
+Cypress.Commands.add("register", (email, name, password, phone) => {
+  cy.log("Registration in progress...");
+  welcomePage.visit();
+  welcomePage.signup();
 
-// Settings commands.
-Cypress.Commands.add("openSettings", (payment) => {
-  // Click on Add Payment button.
-  const paymentsPage = new PaymentsPage();
-  cy.wait(500);
-
-  cy.log("Verify that the title contains 'Payments'");
-  paymentsPage.getTitle().should("contain.text", "Payments:");
-
-  cy.log("Click on the Add Payment button.");
-  paymentsPage.getAddPaymentButton().click();
-
-  // Populate required fields.
-  cy.log("Populate new payment info.");
-
-  // Populate payment info.
-  helper.populateNewPaymentPage(payment);
+  registerPage.verifyUrl();
+  registerPage.submit(email, name, password, phone);
 });

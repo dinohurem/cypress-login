@@ -1,14 +1,14 @@
 import { accountSelectors } from "../../../constants/selectors/account";
 import { accountTexts } from "../../../constants/texts/account";
 
-export class GeneralInfoPage {
+export class LoginSettingsPage {
   visit() {
     let url = Cypress.env("baseUrl");
-    cy.visit(url + "/settings/account-information");
+    cy.visit(url + "/settings/login-settings");
   }
 
   verifyUrl() {
-    cy.url().should("contain", "/settings/account-information");
+    cy.url().should("contain", "/settings/login-settings");
   }
 
   verifyTextPresent(text) {
@@ -19,20 +19,16 @@ export class GeneralInfoPage {
     cy.get(selector).should("have.length", 1);
   }
 
-  verifyElementDisabled(selector) {
-    cy.get(selector).should("be.disabled");
-  }
-
   changeField(selector, value) {
     cy.get(selector).type(value);
   }
 
   submit() {
-    cy.get(accountSelectors.updateSettingsButton).click();
-    cy.contains(accountTexts.updateSettingsConfirmationText).should(
+    cy.get(accountSelectors.changePasswordButton).click();
+    cy.contains(accountTexts.updatePasswordConfirmationText).should(
       "have.length",
       1
     );
   }
 }
-export default GeneralInfoPage;
+export default LoginSettingsPage;

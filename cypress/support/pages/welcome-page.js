@@ -1,4 +1,4 @@
-import { commonTexts } from "../../constants/texts/welcome";
+import { commonTexts } from "../../constants/texts/common";
 
 export class WelcomePage {
   visit() {
@@ -6,9 +6,16 @@ export class WelcomePage {
     cy.visit(url);
   }
 
-  submit() {
-    const button = cy.contains(commonTexts.buttonLogin);
-    button.click();
+  verifyUrl() {
+    cy.url().should("eq", Cypress.env("baseUrl"));
+  }
+
+  login() {
+    cy.contains(commonTexts.buttonLogin).click();
+  }
+
+  signup() {
+    cy.contains(commonTexts.buttonSignup).click();
   }
 }
 export default WelcomePage;

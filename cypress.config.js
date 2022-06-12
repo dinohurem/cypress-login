@@ -12,6 +12,7 @@ module.exports = {
     homeUrl: "https://qa-task-web.ministryofprogramming.com/events",
     email: "anel@test.com",
     password: "Test1234!",
+    verificationCode: "9999",
   },
   e2e: {
     // We've imported your old cypress plugins here.
